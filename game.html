@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- Moon Hop — the tiny browser game in the video, built from one prompt:
+     "Build a tiny browser game: a moon hops between floating platforms,
+      collects stars, and the score goes up. Space to hop."
+     Open this file in a browser, press Space to hop to the next platform. -->
+<html><head><meta charset="utf-8"><title>Moon Hop</title>
+<style>body{margin:0;background:#111;display:flex;justify-content:center}
+canvas{background:#5aa9ff}</style></head>
+<body><canvas id="game" width="540" height="960"></canvas>
+<script>
+const c=document.getElementById('game'),x=c.getContext('2d');
+const P=[{x:40,y:760,w:180},{x:300,y:680,w:170},{x:60,y:580,w:165},{x:310,y:480,w:175},{x:90,y:380,w:180}];
+const S=P.map(p=>({x:p.x+p.w/2,y:p.y-55}));
+let at=0,hop=-1,score=0,taken=new Set(),t=0;
+function draw(){
+  const g=x.createLinearGradient(0,0,0,960);g.addColorStop(0,'#5aa9ff');g.addColorStop(1,'#cfe8ff');
+  x.fillStyle=g;x.fillRect(0,0,540,960);
+  x.fillStyle='#ffe996';x.beginPath();x.arc(450,160,35,0,7);x.fill();
+  P.forEach((p,i)=>{x.fillStyle='#785028';x.fillRect(p.x,p.y,p.w,17);x.fillStyle='#6ec85a';x.fillRect(p.x,p.y,p.w,8);});
+  S.forEach((s,i)=>{if(taken.has(i))return;x.fillStyle='#ffd700';x.beginPath();
+    for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,r=k%2?8:18;x[k?'lineTo':'moveTo'](s.x+r*Math.cos(a),s.y+r*Math.sin(a));}x.fill();});
+  let mx=P[at].x+P[at].w/2,my=P[at].y-21;
+  if(hop>=0){const n=(at+1)%P.length,u=hop;mx=mx+(P[n].x+P[n].w/2-mx)*u;my=my+(P[n].y-21-my)*u-Math.sin(u*Math.PI)*110;}
+  x.fillStyle='#ffec8c';x.beginPath();x.arc(mx,my,21,0,7);x.fill();
+  x.fillStyle='#1e1e1e';x.beginPath();x.arc(mx-7,my-3,3,0,7);x.arc(mx+7,my-3,3,0,7);x.fill();
+  x.fillStyle='#fff';x.font='bold 28px sans-serif';x.fillText('SCORE '+score,20,50);
+  x.font='20px sans-serif';x.fillText('Press SPACE to hop',20,920);
+}
+function step(){t+=0.016;if(hop>=0){hop+=0.02;if(hop>=1){at=(at+1)%P.length;if(!taken.has(at)){taken.add(at);score+=10;}hop=-1;}}draw();requestAnimationFrame(step);}
+addEventListener('keydown',e=>{if(e.code==='Space'&&hop<0)hop=0;});
+step();
+</script></body></html>
