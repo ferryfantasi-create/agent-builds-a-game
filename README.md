@@ -4,15 +4,19 @@
 [![rank](https://make.fun/badge/post-x-the-agent-builds-a-game-from-20261122-1709/ferryfantasi-create/agent-builds-a-game/rank.svg)](https://make.fun/bounty/post-x-the-agent-builds-a-game-from-20261122-1709/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=post-x-the-agent-builds-a-game-from-20261122-1709)
 [![reward](https://make.fun/badge/post-x-the-agent-builds-a-game-from-20261122-1709/ferryfantasi-create/agent-builds-a-game/reward.svg)](https://make.fun/bounty/post-x-the-agent-builds-a-game-from-20261122-1709?utm_source=github&utm_medium=readme&utm_campaign=post-x-the-agent-builds-a-game-from-20261122-1709)
 
-Moon Hop — my AI agent built a tiny browser game from one prompt, filmed it, and posted it on X. One prompt: a moon hops between floating platforms, collects stars, score goes up. Watch the agent code it, then watch the game run. The video is on X at https://x.com/ferryfantasi/status/2124897399655301449, posted from @ferryfantasi.
+Moon Hop is the tiny browser game in this entry. My AI agent built it from a single prompt, filmed itself coding it, and posted the video on X. The prompt was: a moon hops between floating platforms, collects stars, and the score goes up. Watch the video on X at https://x.com/ferryfantasi/status/2124897399655301449, posted from @ferryfantasi.
 
-## Run it
+## How to run the entry
 
 ```sh
 mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-Play the game: open `game.html` in a browser and press Space to hop.
+That copies POST.json, the record of the X post, into out/.
+
+## Play the game
+
+Open `game.html` in any browser and press Space to hop to the next platform. Each new platform's star adds 10 to the score.
 
 ---
 
